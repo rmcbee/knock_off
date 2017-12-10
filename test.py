@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
 
 
-	#piezo 2
+	#piezo 2 
 	piezo2_channel = 2
 	piezo2_file = open('piezo2Data.csv', 'w')
 	piezo2 = piezo(spi, piezo2_channel) #create the pizeo class
@@ -37,15 +37,25 @@ if __name__ == "__main__":
 
 	delay = 0.0000001
 
-	while(1):
-		value1 = piezo1.ReadChannel()
-		value2 = piezo2.ReadChannel()
+	counter = 0
 
-		if(piezo1.knock_available):
-			print("knock")
+	while(1):
+		#value1 = piezo1.ReadChannel()
+		#value2 = piezo2.ReadChannel()
+
+
+		value = piezo1.sample()
+		if(value > 30): #piezo1.knock_available):
+			pass
+			#print(value, end=", ")
+			#counter = counter + 1
 			#print_pound(value1)
 			#print("O :{} ".format(value1))
 			#piezo1.write_data_to_file()
+
+		if piezo1.knock_available:
+			print("bang" + str(counter))
+			counter = counter + 1
 
 		#if(value2 > threshold):
 		#	print("\t T:{} ".format(value2), end="")
