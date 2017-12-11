@@ -10,6 +10,7 @@ from os import system
 #For TCP communication
 import socket
 
+from random import randint
 
 def takePicture():
 	
@@ -48,9 +49,9 @@ if __name__ == "__main__":
 	#Variables used inside of the loop
 	message = "Hello World" #Message to be send over TCP
 	knockSensed = False #True when a knock is detected
+	responses = ["Hello World", "shave", "something else"]
 
 	try:
-		takePicture()
 		while 1:
 			
 			#Insert code here to trigger changing the message being sent
@@ -61,13 +62,15 @@ if __name__ == "__main__":
 			#if data:
 				#pass				
 				#print("received data: " + str(data.decode("utf-8") ))
-			
+			knockSensed = True
 			if knockSensed:
+				message = responses[randint(0,2)]
 				b = bytearray()
 				b.extend(map(ord, message))
 				conn.sendall(b)  # echo
 				takePicture()
 				knockSensed = False
+				sleep(5)
 
 	finally:
 		conn.close()
