@@ -28,7 +28,6 @@ if __name__ == "__main__":
 	#Do the intial setup of things
 	setup()	
 
-	
 	#Must be the IP address of this computer
 	#Use ifconfig to find this out
 	TCP_IP = '192.168.1.103'
@@ -43,10 +42,13 @@ if __name__ == "__main__":
 	s.bind((TCP_IP, TCP_PORT))
 	s.listen(1)
 
-	message = "Hello World"
-
 	conn, addr = s.accept()
 	print('Connection address:' + str(addr))
+	
+	#Variables used inside of the loop
+	message = "Hello World" #Message to be send over TCP
+	knockSensed = False #True when a knock is detected
+
 	try:
 		takePicture()
 		while 1:
@@ -54,16 +56,18 @@ if __name__ == "__main__":
 			#Insert code here to trigger changing the message being sent
 			message = message[-1] + message[:-1]
 
-			data = conn.recv(BUFFER_SIZE)
-			if data:
-				pass				
+			#Uncomment if you want to reciever data from the client
+			#data = conn.recv(BUFFER_SIZE)
+			#if data:
+				#pass				
 				#print("received data: " + str(data.decode("utf-8") ))
 			
+			if knockSensed:
+				b = bytearray()
+				b.extend(map(ord, message))
+				conn.sendall(b)  # echo
+				takePicture()
+				knockSensed = False
 
-			b = bytearray()
-			b.extend(map(ord, message))
-			conn.sendall(b)  # echo
-			#print("hello world")
-			sleep(0.1)
 	finally:
 		conn.close()
