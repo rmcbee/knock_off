@@ -1,7 +1,7 @@
 # Knock off
 
 #### Brief Description
-This project is designed to be a door bell but for knock on the door. Knock off is a retrofit electronics setup that allow you to listen for knocks on the door and then have that information relayed to an array of lights indicating that someone is that the door.
+This project is designed to be a visual feedback system for when a door knock occurs. Knock off is a retrofit electronics setup that allow you to listen for knocks on the door and then have that information relayed to an array of lights indicating that someone is that the door.
 
 #### Features
 - Ability to detect knocks
