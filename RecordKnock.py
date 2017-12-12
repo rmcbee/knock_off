@@ -35,11 +35,6 @@ if __name__ == "__main__":
 
 	prevTime = 0
 
-	#wait until the first knock is heard
-	while not piezo1.knock_available:
-		piezo1.sample()
-		time.sleep(delay)
-
 	prevTime = current_milli_time()	
 
 	clf = generateKnockTree()
