@@ -31,8 +31,8 @@ class piezo:
 		self._knock_available = False
 
 		#state machine state
-		self.knock_upper_threshold = 95
-		self.knock_lower_threshold = 2
+		self.knock_upper_threshold = 150
+		self.knock_lower_threshold = 10
 		self.state = knock_state.IDLE
 
 
@@ -93,6 +93,7 @@ class piezo:
 			if(self.average < self.knock_lower_threshold):
 				self.state = knock_state.EXIT_KNOCK
 		elif(self.state == knock_state.EXIT_KNOCK):
+			time.sleep(0.020)
 			#go to the the wait for knock to finish state
 			self.state = knock_state.IDLE
 		#default state. This should never be reached

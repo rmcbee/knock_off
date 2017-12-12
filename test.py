@@ -45,9 +45,9 @@ if __name__ == "__main__":
 
 
 		value = piezo1.sample()
-		if(value > 30): #piezo1.knock_available):
+		if(value > 110): #piezo1.knock_available):
 			pass
-			#print(value, end=", ")
+			#print(value)
 			#counter = counter + 1
 			#print_pound(value1)
 			#print("O :{} ".format(value1))

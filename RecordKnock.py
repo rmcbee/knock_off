@@ -5,6 +5,7 @@ import time
 import os
 from piezoHandler import *
 from knockDetector import *
+from predictKnock import *
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 
@@ -28,7 +29,7 @@ if __name__ == "__main__":
 
 
 	#set up the file that is going to writen to
-	outFile = open('knock_spacings.csv', 'w')
+	outFile = open('knock_spacings_basic.csv', 'a')
 
 	delay = 0.00005
 
@@ -40,6 +41,8 @@ if __name__ == "__main__":
 		time.sleep(delay)
 
 	prevTime = current_milli_time()	
+
+	clf = generateKnockTree()
 
 	while(1):
 		
@@ -69,7 +72,24 @@ if __name__ == "__main__":
 
 			time.sleep(delay)
 
-			if knock_counter >= 5:
+			#break out if the data is of size 10
+			if knock_counter >= 10:
 				break
 
-		print(', '.join([str(i) for i in knock_times]))			
+			#if the time between knocks is greater than 2 seconds, break out
+			if (current_milli_time() - prevTime) > 2000:
+				break
+
+		#pad the knock_times variable with 0s until there are 10 values
+		for i in range(10 - len(knock_times)):
+			knock_times.append(0)
+
+		if (clf.predict([knock_times])[0]) == 0:
+			print ("shave")
+		else:
+			print ("basic")
+
+
+		#outFile.write(', '.join([str(i) for i in knock_times]))
+		#outFile.write("\n")
+
