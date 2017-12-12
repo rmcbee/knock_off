@@ -60,32 +60,37 @@ if __name__ == '__main__':
 	strip.begin()
 	
 	#TCP communication stuff
-	TCP_IP = '192.168.1.103'
-
+	TCP_IP = '192.168.1.120'
+	#TCP_IP = '169.254.186.163'
 	TCP_PORT = 5005
 
 	BUFFER_SIZE = 100
 
 	message = "Hello, World!"
 
+
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 	s.connect((TCP_IP, TCP_PORT))
 
+	colorWipe(strip, Color(100, 100, 100))  # Green wipe
+
+
 	print ('Press Ctrl-C to quit.')
 	try:
 		while True:
-			
 			data = s.recv(BUFFER_SIZE)
 			if data:
 				print(str(data))
-				if(str(data) == "Hello World"):
+				if(str(data) == "basic"):
 					colorWipe(strip, Color(255, 0, 0))  # Red wipe
-					
+				
 				elif(str(data) == "shave"):
 					colorWipe(strip, Color(0, 255, 0))  # Blue wipe
-					
+				
 				else:
 					colorWipe(strip, Color(0, 0, 255))  # Green wipe
+			sleep(5)
+			colorWipe(strip, Color(0, 0,0))
 	finally:
 		s.close()
