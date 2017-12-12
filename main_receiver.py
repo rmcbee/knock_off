@@ -60,8 +60,8 @@ if __name__ == '__main__':
 	strip.begin()
 	
 	#TCP communication stuff
-	TCP_IP = '192.168.1.103'
-
+	#TCP_IP = '192.168.1.117'
+	TCP_IP = '169.254.186.163'
 	TCP_PORT = 5005
 
 	BUFFER_SIZE = 100
@@ -79,7 +79,7 @@ if __name__ == '__main__':
 			data = s.recv(BUFFER_SIZE)
 			if data:
 				print(str(data))
-				if(str(data) == "Hello World"):
+				if(str(data) == "basic"):
 					colorWipe(strip, Color(255, 0, 0))  # Red wipe
 					
 				elif(str(data) == "shave"):
@@ -87,5 +87,7 @@ if __name__ == '__main__':
 					
 				else:
 					colorWipe(strip, Color(0, 0, 255))  # Green wipe
+			sleep(10)
+			colorWipe(strip, Color(0, 0,0))
 	finally:
 		s.close()
